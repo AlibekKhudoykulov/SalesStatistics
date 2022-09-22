@@ -31,6 +31,14 @@ public class Sales extends AbsEntity {
         private String reasonOfExpenditure;
 
         private Boolean deleted = false;
+
+        public Sales(Date date, String checkoutName, Double income, Double expenditure, String reasonOfExpenditure) {
+                this.date = date;
+                this.checkoutName = checkoutName;
+                this.income = income;
+                this.expenditure = expenditure;
+                this.reasonOfExpenditure = reasonOfExpenditure;
+        }
 }
 
 
