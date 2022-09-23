@@ -22,17 +22,17 @@ public abstract class AbsEntity {
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
     private UUID id;
 
-    @Column(updatable = false)
-    @CreationTimestamp
-    private Timestamp createdAt;
+//    @Column(updatable = false)
+//    @CreationTimestamp
+//    private Timestamp createdAt;
 
-    @UpdateTimestamp
-    private Timestamp updatedAt;
-
-    @CreatedBy
-    @Column(updatable = false)
-    private UUID createdById;
-
-    @LastModifiedBy
-    private UUID updateById;
+//    @UpdateTimestamp
+//    private Timestamp updatedAt;
+//
+//    @CreatedBy
+//    @Column(updatable = false)
+//    private UUID createdById;
+//
+//    @LastModifiedBy
+//    private UUID updateById;
 }

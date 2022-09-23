@@ -1,0 +1,14 @@
+version: '3.7'
+services:
+
+  postgres:
+    image: postgres:13.3-alpine
+    container_name: postgres-local
+    hostname: postgres
+    restart: on-failure
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=sales

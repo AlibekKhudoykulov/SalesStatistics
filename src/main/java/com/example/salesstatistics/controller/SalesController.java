@@ -2,13 +2,14 @@ package com.example.salesstatistics.controller;
 
 import com.example.salesstatistics.constants.PathConstant;
 import com.example.salesstatistics.payload.ApiResponse;
+import com.example.salesstatistics.payload.SalesDTO;
 import com.example.salesstatistics.service.impl.SalesServiceImpl;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.UUID;
 
 @RestController
 @RequestMapping(PathConstant.SALES)
@@ -19,6 +20,34 @@ public class SalesController {
 
     @GetMapping
     public ResponseEntity<ApiResponse> getSales() {
-        return ResponseEntity.ok(salesService.getAllSales());
+        ApiResponse allSales = salesService.getAllSales();
+        return new ResponseEntity<ApiResponse>(allSales, HttpStatus.OK);
     }
+
+    @GetMapping("/{date}")
+    public ResponseEntity<ApiResponse> getSalesByDate(@PathVariable String date) {
+        ApiResponse salesByDate = salesService.getSalesByDate(date);
+        return new ResponseEntity<ApiResponse>(salesByDate, HttpStatus.OK);
+    }
+    @GetMapping("/{date}/{checkoutName}")
+    public ResponseEntity<ApiResponse> getSalesByDateAndCheckoutName(@PathVariable String date, @PathVariable String checkoutName) {
+        ApiResponse salesByDateAndCheckoutName = salesService.getSalesByDateAndCheckoutName(date, checkoutName);
+        return new ResponseEntity<ApiResponse>(salesByDateAndCheckoutName, HttpStatus.OK);
+    }
+    @PostMapping
+    public ResponseEntity<ApiResponse> createSales(@RequestBody SalesDTO salesDTO) {
+        ApiResponse apiResponse = salesService.createSales(salesDTO);
+        return new ResponseEntity<ApiResponse>(apiResponse, HttpStatus.CREATED);
+    }
+    @PutMapping("/{id}")
+    public ResponseEntity<ApiResponse> editSales(@RequestBody SalesDTO salesDTO, @PathVariable UUID id) {
+        ApiResponse apiResponse = salesService.editSales(salesDTO, id);
+        return new ResponseEntity<ApiResponse>(apiResponse, HttpStatus.OK);
+    }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<ApiResponse> deleteSales(@PathVariable UUID id) {
+        ApiResponse apiResponse = salesService.deleteSales(id);
+        return new ResponseEntity<ApiResponse>(apiResponse, HttpStatus.OK);
+    }
+
 }
