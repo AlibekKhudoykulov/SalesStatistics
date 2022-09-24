@@ -8,6 +8,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
+import javax.persistence.ManyToOne;
 import java.util.Date;
 
 @Entity
@@ -22,22 +23,18 @@ public class Sales extends AbsEntity {
 
         private Date date;
 
-        private String checkoutName;
+        @ManyToOne
+        private Checkout checkout;
 
         private Double income;
 
-        private Double expenditure;
-
-        private String reasonOfExpenditure;
 
         private Boolean deleted = false;
 
-        public Sales(Date date, String checkoutName, Double income, Double expenditure, String reasonOfExpenditure) {
+        public Sales(Date date, Checkout checkout, Double income) {
                 this.date = date;
-                this.checkoutName = checkoutName;
+                this.checkout = checkout;
                 this.income = income;
-                this.expenditure = expenditure;
-                this.reasonOfExpenditure = reasonOfExpenditure;
         }
 }
 

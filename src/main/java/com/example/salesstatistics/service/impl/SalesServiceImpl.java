@@ -31,13 +31,9 @@ public class SalesServiceImpl implements SalesService {
 
     @Override
     public ApiResponse createSales(SalesDTO salesDTO) {
-        Sales sales = new Sales(
-                salesDTO.getDate(),
-                salesDTO.getCheckoutName(),
-                salesDTO.getIncome(),
-                salesDTO.getExpenditure(),
-                salesDTO.getReasonOfExpenditure()
-        );
+        Sales sales = new Sales();
+        sales.setDate(salesDTO.getDate());
+        sales.setIncome(salesDTO.getIncome());
         salesRepository.save(sales);
         return new ApiResponse("Success", true);
     }
@@ -46,11 +42,7 @@ public class SalesServiceImpl implements SalesService {
     public ApiResponse editSales(SalesDTO salesDTO, UUID id) {
         Sales sales = salesRepository.findById(id).orElseThrow(() -> new IllegalStateException("Sales not found"));
 
-        sales.setDate(salesDTO.getDate());
-        sales.setCheckoutName(salesDTO.getCheckoutName());
-        sales.setIncome(salesDTO.getIncome());
-        sales.setExpenditure(salesDTO.getExpenditure());
-        sales.setReasonOfExpenditure(salesDTO.getReasonOfExpenditure());
+
         salesRepository.save(sales);
 
         return new ApiResponse("Success", true);

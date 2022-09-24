@@ -14,11 +14,7 @@ import java.util.Date;
 public class SalesDTO {
     private Date date;
 
-    private String checkoutName;
-
     private Double income;
 
-    private Double expenditure;
 
-    private String reasonOfExpenditure;
 }
