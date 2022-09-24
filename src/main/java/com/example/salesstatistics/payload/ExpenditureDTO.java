@@ -6,18 +6,16 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Date;
-import java.util.UUID;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class SalesDTO {
+public class ExpenditureDTO {
     private Date date;
-
-    private Double income;
-
-    private UUID checkoutId;
+    private Double expenditureAmount;
+    private String reasonOfExpenditure;
 
 
 }
+

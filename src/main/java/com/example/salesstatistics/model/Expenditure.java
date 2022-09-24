@@ -23,13 +23,14 @@ import java.util.Date;
 @Where(clause = "deleted = false")
 public class Expenditure extends AbsEntity {
     private Date date;
-    private Double expenditure;
+    private Double expenditureAmount;
     private String reasonOfExpenditure;
+
     private Boolean deleted = false;
 
     public Expenditure(Date date, Double expenditure, String reasonOfExpenditure) {
         this.date = date;
-        this.expenditure = expenditure;
+        this.expenditureAmount = expenditure;
         this.reasonOfExpenditure = reasonOfExpenditure;
     }
 }

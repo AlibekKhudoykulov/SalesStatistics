@@ -9,5 +9,4 @@ import java.util.UUID;
 public interface SalesRepository extends JpaRepository<Sales, UUID> {
     //get sales by date
     List<Sales> findAllByDate(String date);
-    List<Sales> findAllByDateAndCheckoutName(String date, String checkoutName);
 }

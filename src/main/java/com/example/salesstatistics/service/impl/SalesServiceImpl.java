@@ -3,6 +3,7 @@ package com.example.salesstatistics.service.impl;
 import com.example.salesstatistics.model.Sales;
 import com.example.salesstatistics.payload.ApiResponse;
 import com.example.salesstatistics.payload.SalesDTO;
+import com.example.salesstatistics.repository.CheckoutRepository;
 import com.example.salesstatistics.repository.SalesRepository;
 import com.example.salesstatistics.service.SalesService;
 import lombok.RequiredArgsConstructor;
@@ -14,8 +15,8 @@ import java.util.UUID;
 @Service
 @RequiredArgsConstructor
 public class SalesServiceImpl implements SalesService {
-
     private final SalesRepository salesRepository;
+    private final CheckoutRepository checkoutRepository;
 
     @Override
     public ApiResponse getSalesByDate(String date) {
@@ -23,29 +24,33 @@ public class SalesServiceImpl implements SalesService {
         return new ApiResponse("Success", true, allByDate);
     }
 
-    @Override
-    public ApiResponse getSalesByDateAndCheckoutName(String date, String checkoutName) {
-        List<Sales> allByDateAndCheckoutName = salesRepository.findAllByDateAndCheckoutName(date, checkoutName);
-        return new ApiResponse("Success", true, allByDateAndCheckoutName);
-    }
+//    @Override
+//    public ApiResponse getSalesByDateAndCheckoutName(String date, String checkoutName) {
+//        List<Sales> allByDateAndCheckoutName = salesRepository.findAllByDateAndCheckoutName(date, checkoutName);
+//        return new ApiResponse("Success", true, allByDateAndCheckoutName);
+//    }
 
     @Override
     public ApiResponse createSales(SalesDTO salesDTO) {
         Sales sales = new Sales();
         sales.setDate(salesDTO.getDate());
         sales.setIncome(salesDTO.getIncome());
-        salesRepository.save(sales);
-        return new ApiResponse("Success", true);
+        sales.setCheckout(checkoutRepository.findById(salesDTO.getCheckoutId()).orElseThrow(() -> new IllegalStateException("Checkout not found")));
+        Sales save = salesRepository.save(sales);
+        return new ApiResponse("Success", true,save);
     }
 
     @Override
     public ApiResponse editSales(SalesDTO salesDTO, UUID id) {
         Sales sales = salesRepository.findById(id).orElseThrow(() -> new IllegalStateException("Sales not found"));
+        sales.setDate(salesDTO.getDate());
+        sales.setIncome(salesDTO.getIncome());
+        sales.setCheckout(checkoutRepository.findById(salesDTO.getCheckoutId()).orElseThrow(() -> new IllegalStateException("Checkout not found")));
 
 
-        salesRepository.save(sales);
+        Sales save = salesRepository.save(sales);
 
-        return new ApiResponse("Success", true);
+        return new ApiResponse("Success", true,save);
     }
 
     @Override

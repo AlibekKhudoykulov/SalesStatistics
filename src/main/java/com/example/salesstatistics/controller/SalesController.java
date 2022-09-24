@@ -3,6 +3,7 @@ package com.example.salesstatistics.controller;
 import com.example.salesstatistics.constants.PathConstant;
 import com.example.salesstatistics.payload.ApiResponse;
 import com.example.salesstatistics.payload.SalesDTO;
+import com.example.salesstatistics.service.SalesService;
 import com.example.salesstatistics.service.impl.SalesServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -25,14 +26,10 @@ public class SalesController {
     }
 
     @GetMapping("/{date}")
+
     public ResponseEntity<ApiResponse> getSalesByDate(@PathVariable String date) {
         ApiResponse salesByDate = salesService.getSalesByDate(date);
         return new ResponseEntity<ApiResponse>(salesByDate, HttpStatus.OK);
-    }
-    @GetMapping("/{date}/{checkoutName}")
-    public ResponseEntity<ApiResponse> getSalesByDateAndCheckoutName(@PathVariable String date, @PathVariable String checkoutName) {
-        ApiResponse salesByDateAndCheckoutName = salesService.getSalesByDateAndCheckoutName(date, checkoutName);
-        return new ResponseEntity<ApiResponse>(salesByDateAndCheckoutName, HttpStatus.OK);
     }
     @PostMapping
     public ResponseEntity<ApiResponse> createSales(@RequestBody SalesDTO salesDTO) {
